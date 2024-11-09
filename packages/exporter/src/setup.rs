@@ -201,8 +201,13 @@ pub async fn extract(data_dir: &Path, factorio_data: &Path) -> Result<(), Box<dy
     let mut file_paths = iter
         .into_iter()
         .map(|s| {
-            let in_path =
-                factorio_data.join(s.replace("__core__", "core").replace("__base__", "base"));
+            let in_path = factorio_data.join(
+                s.replace("__core__", "core")
+                    .replace("__base__", "base")
+                    .replace("__elevated-rails__", "elevated-rails")
+                    .replace("__quality__", "quality")
+                    .replace("__space-age__", "space-age"),
+            );
             let out_path = output_dir.join(s.replace(".png", ".basis").as_str());
             (in_path, out_path)
         })
@@ -331,7 +336,7 @@ pub async fn download_factorio(
         let mpb = MultiProgress::new();
 
         let d0 = download(
-            get_download_url("alpha", factorio_version, &username, &token),
+            get_download_url("expansion", factorio_version, &username, &token),
             data_dir,
             &["factorio/data/*"],
             mpb.add(ProgressBar::new(0)),
