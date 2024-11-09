@@ -32,8 +32,9 @@ const FD: {
 export function loadData(str: string): void {
     // convert every - to _ without file paths
     const data = JSON.parse(
-        str.replace(/("(?!__base__|__core__)[^":]+?-[^":]+?")/g, (_: string, capture: string) =>
-            capture.replace(/-/g, '_')
+        str.replace(
+            /("(?!__base__|__core__|__elevated-rails__|__quality__|__space-age__)[^":]+?-[^":]+?")/g,
+            (_: string, capture: string) => capture.replace(/-/g, '_')
         )
     )
     console.log(data)
